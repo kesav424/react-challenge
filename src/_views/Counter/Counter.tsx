@@ -3,6 +3,8 @@ import React from 'react'
 import Card from './_components/Card'
 import Title from '@/_components/Title'
 import Button, { buttonVariants } from '@/_components/Button'
+import { cn } from '@/_utils/tailwind.utils'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export const int = 0;
 function Counter() {
@@ -39,13 +41,19 @@ function Counter() {
                     >
                         -
                     </Button>
-                    <div
-                        className={buttonVariants({ className: 'text-xl', variant: 'grey' })}
-                        role="status"
-                        aria-live="polite"
-                        aria-label={`Current count is ${count}`}
-                    >
-                        {count}
+                    <div className={cn(buttonVariants(), "relative  overflow-hidden text-center")}>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={count}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2 }}
+                                className=" w-full text-2xl"
+                            >
+                                {count}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                     <Button
                         onClick={handleIncrement}

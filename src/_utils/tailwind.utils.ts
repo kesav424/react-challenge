@@ -1,8 +1,9 @@
 import { tailwindMergeConfig } from '@/_configs/tailwindMerge.config';
 import { clsx, type ClassValue } from 'clsx';
 import { extendTailwindMerge } from 'tailwind-merge';
-import { createTV } from 'tailwind-variants';
+import { createTV, type VariantProps } from 'tailwind-variants';
 
+export type { VariantProps }
 
 const twMerge = extendTailwindMerge({
   extend: tailwindMergeConfig,
