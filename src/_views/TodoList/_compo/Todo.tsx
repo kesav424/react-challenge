@@ -1,5 +1,9 @@
 'use client'
-import { ClockIcon, Edit2Icon, TrashIcon } from "lucide-react";
+import { ClockIcon, TrashIcon } from "lucide-react";
+import { useContext } from "react";
+import { TodoContext } from "../TodoList";
+import { ACTIONS } from "../_reducer/todo.reducer";
+import { cn } from "@/_utils/tailwind.utils";
 
 export interface ToDo {
     id: string;
@@ -10,7 +14,16 @@ export interface ToDo {
 }
 const Todo = (props: ToDo) => {
     const { id, text, isChecked, time } = props
-    //  handleCheck(id)
+    const dispatch = useContext(TodoContext)
+    function handleCheck(id: string) {
+        if (!dispatch) return
+        dispatch({ type: ACTIONS.TOGGLE_TODO, payload: { id: id } })
+    }
+
+    function removeElement(id: string) {
+        if (!dispatch) return
+        dispatch({ type: ACTIONS.DELETE_TODO, payload: { id: id } })
+    }
     return (
         <div
             className="relative flex w-full items-center gap-3 rounded border border-zinc-700 bg-zinc-900 p-3"
@@ -18,11 +31,11 @@ const Todo = (props: ToDo) => {
             <input
                 type="checkbox"
                 checked={isChecked}
-                onChange={() => { }}
+                onChange={() => handleCheck(id)}
                 className="size-4 accent-indigo-400"
             />
             <p
-                className={`text-white transition-colors ${isChecked && "text-zinc-400"}`}
+                className={cn("text-white transition-colors ", isChecked && "text-zinc-400")}
             >
                 {text}
             </p>
@@ -32,17 +45,12 @@ const Todo = (props: ToDo) => {
                     <span>{time}</span>
                 </div>
                 <button
-                    // onClick={() => removeElement(id)}
+                    onClick={() => removeElement(id)}
                     className="rounded bg-red-300/20 px-1.5 py-1 text-xs text-red-300 transition-colors hover:bg-red-600 hover:text-red-200"
                 >
                     <TrashIcon />
                 </button>
-                <button
-                    className="rounded bg-blue-300/20 px-1.5 py-1 text-xs text-blue-300 transition-colors hover:bg-green-600 hover:text-red-200"
-                // onClick={() => editElemnt(id)}
-                >
-                    <Edit2Icon />
-                </button>
+
             </div>
         </div>
     );
