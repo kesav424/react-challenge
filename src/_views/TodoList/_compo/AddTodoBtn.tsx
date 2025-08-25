@@ -1,8 +1,8 @@
 import { cn } from '@/_utils/tailwind.utils'
 import { PlusCircleIcon } from 'lucide-react'
-import React from 'react'
+import React, { memo } from 'react'
 
-function AddTodoBtn() {
+function AddTodoBtn({ handleClick }: { handleClick: () => void }) {
     return (
         <button
             type='button'
@@ -15,10 +15,13 @@ function AddTodoBtn() {
                     "transition-colors"
 
                 ])}
+            onClick={handleClick}
         >
             <PlusCircleIcon />
         </button>
     )
 }
 
-export default AddTodoBtn
+
+
+export default memo(AddTodoBtn)

@@ -1,6 +1,6 @@
 'use client'
 import { ClockIcon, TrashIcon } from "lucide-react";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { TodoContext } from "../TodoList";
 import { ACTIONS } from "../_reducer/todo.reducer";
 import { cn } from "@/_utils/tailwind.utils";
@@ -24,6 +24,8 @@ const Todo = (props: ToDo) => {
         if (!dispatch) return
         dispatch({ type: ACTIONS.DELETE_TODO, payload: { id: id } })
     }
+
+    console.log('todos redner')
     return (
         <div
             className="relative flex w-full items-center gap-3 rounded border border-zinc-700 bg-zinc-900 p-3"
@@ -56,4 +58,4 @@ const Todo = (props: ToDo) => {
     );
 };
 
-export default Todo
+export default memo(Todo)

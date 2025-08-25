@@ -1,11 +1,11 @@
 import Title from "@/_components/Title";
 import Todo, { ToDo } from "./Todo";
 import { CircleCheckBig } from "lucide-react";
+import { memo } from "react";
 
 
 
 const Todos = ({ todos }: { todos: ToDo[] }) => {
-
     return (
         todos.length > 0 ?
             (<div className="w-full space-y-3 max-w-3xl mx-auto mt-10">

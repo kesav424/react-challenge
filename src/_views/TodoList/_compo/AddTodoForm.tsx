@@ -1,9 +1,11 @@
 'use client'
-import React, { Dispatch, FormEvent, useState } from 'react'
+import React, { FormEvent, useContext, useState } from 'react'
 import { Action, ACTIONS } from '../_reducer/todo.reducer'
+import { TodoContext } from '../TodoList'
 
-function AddTodoForm({ dispatch }: { dispatch: Dispatch<Action> }) {
+function AddTodoForm() {
     const [unit, setUnit] = useState<"mins" | 'hrs'>("hrs")
+    const dispatch = useContext(TodoContext)
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
