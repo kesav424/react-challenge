@@ -1,8 +1,10 @@
 import { cn } from '@/_utils/tailwind.utils'
+import clsx from 'clsx'
 import { PlusCircleIcon } from 'lucide-react'
 import React, { memo } from 'react'
 
-function AddTodoBtn({ handleClick }: { handleClick: () => void }) {
+function AddTodoBtn({ handleClick, showForm }: { handleClick: () => void, showForm: boolean }) {
+    console.log("render")
     return (
         <button
             type='button'
@@ -17,7 +19,7 @@ function AddTodoBtn({ handleClick }: { handleClick: () => void }) {
                 ])}
             onClick={handleClick}
         >
-            <PlusCircleIcon />
+            <PlusCircleIcon className={clsx("transition-transform duration-300", { "rotate-45": showForm })} />
         </button>
     )
 }

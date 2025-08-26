@@ -6,6 +6,7 @@ import AddTodoForm from './_compo/AddTodoForm'
 import Todos from './_compo/Todos'
 import { todos } from './_data/todos.data'
 import { Action, reducer } from './_reducer/todo.reducer'
+import { AnimatePresence } from 'framer-motion'
 
 
 export const TodoContext = createContext<React.Dispatch<Action>>(() => { })
@@ -16,7 +17,7 @@ function TodoList() {
     const [showForm, setShowForm] = useState<boolean>(false)
     const handleClick = useCallback(() => {
         setShowForm(prev => !prev)
-    }, [])
+    }, [showForm])
     return (
         <section>
             <Title className='text-center'>To-Do list app</Title>
@@ -25,10 +26,12 @@ function TodoList() {
                     todos={list}
                 />
                 <div className=' fixed bottom-5 left-1/2 -translate-x-1/2 w-full p-6 max-w-[500px]'>
-                    {
-                        showForm && <AddTodoForm />
-                    }
-                    <AddTodoBtn handleClick={handleClick} />
+                    <AnimatePresence>
+                        {
+                            showForm && <AddTodoForm />
+                        }
+                    </AnimatePresence>
+                    <AddTodoBtn handleClick={handleClick} showForm={showForm} />
                 </div>
             </TodoContext.Provider>
         </section>

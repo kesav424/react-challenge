@@ -1,9 +1,10 @@
 'use client'
 import { ClockIcon, TrashIcon } from "lucide-react";
-import { memo, useContext } from "react";
+import { memo, useContext, useEffect } from "react";
 import { TodoContext } from "../TodoList";
 import { ACTIONS } from "../_reducer/todo.reducer";
 import { cn } from "@/_utils/tailwind.utils";
+import { motion, scale, useAnimate, usePresence } from "framer-motion"
 
 export interface ToDo {
     id: string;
@@ -15,6 +16,33 @@ export interface ToDo {
 const Todo = (props: ToDo) => {
     const { id, text, isChecked, time } = props
     const dispatch = useContext(TodoContext)
+    const [scope, animate] = useAnimate()
+    const [ispresent, safeToRemove] = usePresence()
+
+
+
+    useEffect(() => {
+        if (!ispresent) {
+            const initalAimation = async () => {
+                animate(
+                    "p",
+                    {
+                        color: isChecked ? "#6ee7b7" : "#fca5a5",
+                    },
+                    {
+                        ease: "easeIn",
+                        duration: 0.125,
+                    }
+                );
+                await animate(scope.current, { scale: 1.10, }, { duration: 0.125, ease: "easeIn", })
+                await animate(scope.current, { opacity: 0, x: !isChecked ? -25 : 25 }, { delay: 0.10 })
+                safeToRemove()
+            }
+            initalAimation();
+        }
+
+    }, [ispresent])
+
     function handleCheck(id: string) {
         if (!dispatch) return
         dispatch({ type: ACTIONS.TOGGLE_TODO, payload: { id: id } })
@@ -25,9 +53,11 @@ const Todo = (props: ToDo) => {
         dispatch({ type: ACTIONS.DELETE_TODO, payload: { id: id } })
     }
 
-    console.log('todos redner')
     return (
-        <div
+        <motion.div
+            layout
+            ref={scope}
+            // transition={{ type: "spring" }}
             className="relative flex w-full items-center gap-3 rounded border border-zinc-700 bg-zinc-900 p-3"
         >
             <input
@@ -54,7 +84,7 @@ const Todo = (props: ToDo) => {
                 </button>
 
             </div>
-        </div>
+        </motion.div>
     );
 };
 

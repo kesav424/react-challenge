@@ -27,5 +27,26 @@ export const todos: ToDo[] = [
         text: "Get dog food",
         isChecked: false,
         time: "1 hrs",
+    },
+    {
+        id: nanoid(),
+        text: "Get dog ",
+        isChecked: false,
+        time: "1 hrs",
+    }, {
+        id: nanoid(),
+        text: "Get  food",
+        isChecked: false,
+        time: "1 hrs",
+    }, {
+        id: nanoid(),
+        text: " dog food",
+        isChecked: false,
+        time: "1 hrs",
+    }, {
+        id: nanoid(),
+        text: " food",
+        isChecked: false,
+        time: "1 hrs",
     }
 ]

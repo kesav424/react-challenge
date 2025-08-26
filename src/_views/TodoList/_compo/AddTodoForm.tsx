@@ -1,6 +1,7 @@
 'use client'
 import React, { FormEvent, useContext, useState } from 'react'
-import { Action, ACTIONS } from '../_reducer/todo.reducer'
+import { animate, motion } from "motion/react"
+import { ACTIONS } from '../_reducer/todo.reducer'
 import { TodoContext } from '../TodoList'
 
 function AddTodoForm() {
@@ -22,8 +23,11 @@ function AddTodoForm() {
         return () => setUnit(unit);
     }
     return (
-        <form
-            className="mb-6 w-full rounded border border-zinc-700 bg-zinc-900 p-3"
+        <motion.form
+            initial={{ opacity: 0, translateY: 20 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            exit={{ opacity: 0, translateY: 20 }}
+            className="mb-6 w-full rounded border border-zinc-700 bg-zinc-900 p-3 focus-within:border-green-400"
             onSubmit={handleSubmit}
         >
             <textarea
@@ -68,7 +72,7 @@ function AddTodoForm() {
             </div>
 
 
-        </form>
+        </motion.form>
     )
 }
 
