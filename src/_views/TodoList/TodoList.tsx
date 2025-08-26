@@ -20,12 +20,12 @@ function TodoList() {
     }, [showForm])
     return (
         <section>
-            <Title className='text-center'>To-Do list app</Title>
+            <Title tag='h2' className='text-center'>To-Do list app</Title>
             <TodoContext.Provider value={dispatch}>
                 <Todos
                     todos={list}
                 />
-                <div className=' fixed bottom-5 left-1/2 -translate-x-1/2 w-full p-6 max-w-[500px]'>
+                <div className='fixed bottom-5 left-1/2 -translate-x-1/2 w-full p-6 max-w-[500px]'>
                     <AnimatePresence>
                         {
                             showForm && <AddTodoForm />

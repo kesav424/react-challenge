@@ -4,7 +4,6 @@ import { PlusCircleIcon } from 'lucide-react'
 import React, { memo } from 'react'
 
 function AddTodoBtn({ handleClick, showForm }: { handleClick: () => void, showForm: boolean }) {
-    console.log("render")
     return (
         <button
             type='button'

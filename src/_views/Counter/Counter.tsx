@@ -23,7 +23,7 @@ function Counter() {
 
     return (
         <div className='flex flex-col justify-around items-center h-full'>
-            <Title className='text-center'>
+            <Title tag='h2' className='text-center'>
                 Counter App
             </Title>
             <Card className='min-w-2xs'>
