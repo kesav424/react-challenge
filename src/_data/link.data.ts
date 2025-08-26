@@ -13,4 +13,8 @@ export const navLinks: Navlinks[] = [
         label: "To-Do list",
         href: 'to-do-list'
     }
+    , {
+        label: "search filter",
+        href: 'search-filter'
+    }
 ]

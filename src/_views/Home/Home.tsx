@@ -1,5 +1,5 @@
 import React from 'react'
-import { BASE_URL, navLinks } from './_data/link.data'
+import { BASE_URL, navLinks } from '../../_data/link.data'
 import Link from 'next/link'
 import { LinkIcon } from 'lucide-react'
 

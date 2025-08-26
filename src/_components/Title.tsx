@@ -1,7 +1,7 @@
 import React from "react";
 import { tv } from "tailwind-variants";
 
-interface PageTitle {
+interface PageTitle extends React.ComponentPropsWithoutRef<'h1'> {
     tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     children: React.ReactNode,
     className?: string;
