@@ -16,5 +16,8 @@ export const navLinks: Navlinks[] = [
     , {
         label: "search filter",
         href: 'search-filter'
+    }, {
+        label: "Login form with validation",
+        href: 'login-from'
     }
 ]
