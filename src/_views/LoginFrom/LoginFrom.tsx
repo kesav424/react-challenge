@@ -25,7 +25,7 @@ function LoginFrom() {
 
             <form onSubmit={handleSubmit(submitForm)}
                 noValidate
-                className="my-6 w-full rounded border border-zinc-700 bg-zinc-900 p-3 max-w-3xs mx-auto">
+                className="my-6 w-full rounded border border-zinc-700 dark:bg-zinc-900 p-3 max-w-3xs mx-auto">
 
                 <InputFelid className='gap-1 my-1.5'>
                     <InputLabel
