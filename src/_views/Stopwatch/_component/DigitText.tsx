@@ -6,7 +6,7 @@ interface Props {
 
 function DigitText({ value, id }: Props) {
     return (
-        <span className="relative bg-zinc-300 rounded-[4px] text-6xl p-2 ">
+        <span className="relative bg-zinc-300 dark:bg-gray-600 rounded-[4px] text-6xl p-2 ">
             <AnimatePresence>
                 <motion.span
                     key={id}
