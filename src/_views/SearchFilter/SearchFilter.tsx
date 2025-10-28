@@ -1,7 +1,6 @@
 import React from 'react'
 import SearchInput from './_comps/SearchInput'
 import SearchList from './_comps/SearchList'
-import { div } from 'framer-motion/client'
 import Title from '@/_components/Title'
 
 function SearchFilter() {

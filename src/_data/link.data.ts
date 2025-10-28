@@ -20,4 +20,8 @@ export const navLinks: Navlinks[] = [
         label: "Login form with validation",
         href: 'login-from'
     }
+    , {
+        label: "Simple Timer/Stopwatch",
+        href: 'stopwatch'
+    }
 ]

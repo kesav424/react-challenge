@@ -4,7 +4,7 @@ import { memo, useContext, useEffect } from "react";
 import { TodoContext } from "../TodoList";
 import { ACTIONS } from "../_reducer/todo.reducer";
 import { cn } from "@/_utils/tailwind.utils";
-import { motion, scale, useAnimate, usePresence } from "framer-motion"
+import { motion, useAnimate, usePresence } from "framer-motion"
 
 export interface ToDo {
     id: string;
@@ -25,7 +25,7 @@ const Todo = (props: ToDo) => {
         if (!ispresent) {
             const initalAimation = async () => {
                 animate(
-                    "p",
+                    "label",
                     {
                         color: isChecked ? "#6ee7b7" : "#fca5a5",
                     },
@@ -58,21 +58,22 @@ const Todo = (props: ToDo) => {
             layout
             ref={scope}
             // transition={{ type: "spring" }}
-            className="relative flex w-full items-center gap-3 rounded border border-zinc-700 bg-zinc-900 p-3"
+            className="relative flex w-full items-center gap-3 rounded border dark:border-zinc-700 dark:bg-zinc-900 p-3"
         >
             <input
+                id={text}
                 type="checkbox"
                 checked={isChecked}
                 onChange={() => handleCheck(id)}
-                className="size-4 accent-indigo-400"
+                className="size-4 dark:accent-indigo-400"
             />
-            <p
-                className={cn("text-white transition-colors ", isChecked && "text-zinc-400")}
+            <label htmlFor={text}
+                className={cn("dark:text-white transition-colors ", isChecked && "dark:text-zinc-400")}
             >
                 {text}
-            </p>
+            </label>
             <div className="ml-auto flex gap-1.5">
-                <div className="flex items-center gap-1.5 whitespace-nowrap rounded bg-zinc-800 px-1.5 py-1 text-xs text-zinc-400">
+                <div className="flex items-center gap-1.5 whitespace-nowrap bg-zinc-200 rounded dark:bg-zinc-800 px-1.5 py-1 text-xs dark:text-zinc-400">
                     <ClockIcon />
                     <span>{time}</span>
                 </div>

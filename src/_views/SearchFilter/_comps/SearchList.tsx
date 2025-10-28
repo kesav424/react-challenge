@@ -21,7 +21,7 @@ function SearchList() {
     }, [searchValue]);
 
     return (
-        <div className="my-6 w-full rounded border border-zinc-700 bg-zinc-900 p-3 focus-within:border-green-400">
+        <div className="my-6 w-full rounded border dark:border-zinc-700 dark:bg-zinc-900 p-3 focus-within:border-green-400">
             {list.length > 0 ? (
                 <ul aria-live="polite">
                     {list.map((product, index) => (
