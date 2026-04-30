@@ -7,7 +7,7 @@ function Header() {
     return (
         <header className='px-4 py-5 flex items-center justify-around'>
             <Link href={"/"} className='hover:opacity-70'>
-                <Title tag='h1' className='text-2xl'>React Challenges</Title>
+                <Title tag='h1' className='text-xl'>React Challenges</Title>
             </Link>
             <ThemeSwitcher />
         </header>

@@ -21,6 +21,24 @@ function Counter() {
         setCount(prev => prev - 1)
     }
 
+    React.useEffect(() => {
+        const handleKeyUp = (e: KeyboardEvent) => {
+            if (e.code == 'Minus') {
+                console.log('true')
+                handleDecrement();
+            } else if (e.code == 'Equal') {
+                handleIncrement()
+            }
+        }
+
+        document.addEventListener('keyup', handleKeyUp)
+
+        return () => {
+            document.removeEventListener('keyup', handleKeyUp)
+            console.log('event removed')
+        }
+    }, [count])
+
     return (
         <div className='flex flex-col justify-around items-center h-full'>
             <Title tag='h2' className='text-center'>

@@ -27,7 +27,7 @@ const title = tv({
 function Title(props: PageTitle) {
     const { tag: Tag = 'h1', children, className = " " } = props
     return (
-        <Tag className={cn(className, title({ tag: Tag, }))}>{children}</Tag>
+        <Tag className={cn(title({ tag: Tag, }), className)}>{children}</Tag>
     )
 }
 
