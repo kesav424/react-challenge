@@ -10,34 +10,49 @@ export const int = 0;
 function Counter() {
 
     const [count, setCount] = React.useState<number>(0)
-
+    const [direction, setDirection] = React.useState<'up' | 'down'>('up')
+    const [bounce, setBounce] = React.useState(false)
 
     const handleIncrement = () => {
+        setDirection('up')
         setCount(prev => prev + 1)
     }
 
     const handleDecrement = () => {
-        if (count < 1) return
-        setCount(prev => prev - 1)
+        setDirection('down')
+        setCount(prev => {
+            if (prev < 1) {
+                setBounce(true)
+                return prev
+            }
+            return prev - 1
+        })
     }
+
 
     React.useEffect(() => {
         const handleKeyUp = (e: KeyboardEvent) => {
             if (e.code == 'Minus') {
-                console.log('true')
                 handleDecrement();
             } else if (e.code == 'Equal') {
-                handleIncrement()
+                handleIncrement();
             }
         }
-
         document.addEventListener('keyup', handleKeyUp)
-
         return () => {
             document.removeEventListener('keyup', handleKeyUp)
-            console.log('event removed')
+
         }
-    }, [count])
+    }, [])
+
+    React.useEffect(() => {
+        if (!bounce) return
+        const bounceTimeout = setTimeout(() => {
+            setBounce(false);
+        }, 200)
+
+        return () => clearTimeout(bounceTimeout)
+    }, [bounce])
 
     return (
         <div className='flex flex-col justify-around items-center h-full'>
@@ -60,14 +75,32 @@ function Counter() {
                         -
                     </Button>
                     <div className={cn(buttonVariants(), "relative  overflow-hidden text-center")}>
-                        <AnimatePresence mode="wait">
+                        <AnimatePresence mode="wait" custom={direction}>
                             <motion.div
                                 key={count}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
+                                custom={direction}
+                                variants={{
+                                    initial: (dir: string) => ({
+                                        opacity: 0,
+                                        y: dir === 'up' ? 10 : -10,
+                                    }),
+                                    animate: {
+                                        opacity: 1,
+                                        y: 0,
+                                    },
+                                    exit: (dir: string) => ({
+                                        opacity: 0,
+                                        y: dir === 'up' ? -10 : 10,
+                                    }),
+                                    bounce: {
+                                        x: [0, -5, 5, -5, 5, 0],
+                                        y: [0, 0, 0]
+                                    }
+                                }}
+                                initial="initial"
+                                animate={bounce ? "bounce" : "animate"}
+                                exit="exit"
                                 transition={{ duration: 0.2 }}
-                                className=" w-full text-2xl"
                             >
                                 {count}
                             </motion.div>
