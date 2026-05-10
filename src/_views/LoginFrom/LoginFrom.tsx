@@ -1,6 +1,6 @@
 'use client'
 import Title from '@/_components/Title'
-import React, { FormEvent } from 'react'
+import React from 'react'
 import Input from './_comp/Input'
 import InputFelid from './_comp/InputFelid';
 import InputLabel from './_comp/InputLabel';
@@ -8,17 +8,35 @@ import ErrorMessage from './_comp/ErrorMessage';
 import { useForm } from 'react-hook-form';
 import { loginForm, LoginSchema } from './helpers/formSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AnimatePresence, motion } from 'framer-motion'
+import { cn } from '@/_utils/tailwind.utils';
 
 function LoginFrom() {
 
-    const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginSchema>({
         resolver: zodResolver(loginForm)
     })
+    const [isSubmitted, setIsSubmitted] = React.useState<boolean>(false)
 
     function submitForm(data: LoginSchema) {
-        console.log('form submitted succfully', data)
 
+        if (data.email != "" && data.password != "") {
+            console.log('form submitted succfully', data)
+            setIsSubmitted(true)
+            reset();
+        }
     }
+
+    React.useEffect(() => {
+        if (!isSubmitted) return
+        const timeout = setTimeout(() => {
+            setIsSubmitted(false)
+        }, 1000)
+
+        return () => {
+            clearTimeout(timeout)
+        }
+    }, [isSubmitted])
     return (
         <section>
             <Title tag='h2' className='text-center'>Login Form</Title>
@@ -45,9 +63,9 @@ function LoginFrom() {
                         }
                         aria-invalid={!!errors.email}
                         aria-describedby={errors.email ? "email-error" : undefined}
-                        className={errors.email
-                            ? "border-red-500 focus:ring-red-500"
-                            : "border-gray-300 focus:ring-blue-500"}
+                        className={cn("border-gray-300 focus:outline-blue-500 ", errors.email
+                            && "border-red-500 focus:outline-red-500"
+                        )}
                     />
                     {
                         errors.email && (
@@ -76,9 +94,9 @@ function LoginFrom() {
                         {...register("password")}
                         aria-invalid={!!errors.password}
                         aria-describedby={errors.password ? "error-email" : undefined}
-                        className={errors.password
-                            ? "border-red-500 focus:ring-red-500"
-                            : "border-gray-300 focus:ring-blue-500"}
+                        className={cn("border-gray-300 focus:outline-blue-500", errors.email
+                            && "border-red-500 focus:outline-red-500"
+                        )}
                     />
                     {
                         errors.password && (
@@ -97,6 +115,23 @@ function LoginFrom() {
                 >
                     Submit
                 </button>
+                <AnimatePresence>
+                    {
+                        isSubmitted && (
+                            <motion.div
+                                initial={{ opacity: "0" }}
+                                animate={{ opacity: '1' }}
+                                transition={{ duration: 2 }}
+
+                            >
+                                <p className='flex mt-4 text-green-500 justify-center'>
+                                    Successfully form submitted
+                                </p>
+                            </motion.div>
+                        )
+                    }
+                </AnimatePresence>
+
             </form>
         </section>
     )
