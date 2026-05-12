@@ -24,4 +24,8 @@ export const navLinks: Navlinks[] = [
         label: "Simple Timer/Stopwatch",
         href: 'stopwatch'
     }
+    , {
+        label: "Fetch user data from API and display",
+        href: 'fetch-users-api'
+    }
 ]
