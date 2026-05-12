@@ -3,6 +3,7 @@ import Card from '@/_views/Counter/_components/Card';
 import React, { FC, JSX } from 'react'
 
 export type UserCards = {
+    name: string;
     userName: string;
     email: string;
     website?: string;
@@ -10,10 +11,12 @@ export type UserCards = {
 }
 
 const UserCards: FC<UserCards> = (props): JSX.Element => {
-    const { userName, email, website = "", phone = "" } = props;
+    const { name, userName, email, website = "", phone = "" } = props;
     return (
         <Card>
-
+            <Title tag='h2'>
+                {name}
+            </Title>
             <Title tag='h3'>
                 {userName}
             </Title>
@@ -23,13 +26,13 @@ const UserCards: FC<UserCards> = (props): JSX.Element => {
             {/* website  */}
             {
                 website && (
-                    <a href={website}>{website}</a>
+                    <a className='block' href={website}>{website}</a>
                 )
             }
             {/* phone  */}
             {
                 phone && (
-                    <a href={`tel:+${phone}`}>
+                    <a className='block' href={`tel:+${phone}`}>
                         {
                             phone
                         }
